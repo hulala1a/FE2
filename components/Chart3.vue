@@ -4,8 +4,9 @@
 </template>
 
 <script>
-const echarts = require('echarts/lib/echarts');
-require('echarts/lib/chart/pie');
+//const echarts = require('echarts/lib/echarts');
+//require('echarts/lib/chart/pie');
+//require('echarts/lib/component/legend');
 
 
 export default {
@@ -17,12 +18,13 @@ export default {
     },
     methods:{
         chartInit(){
-            let myChart = echarts.init(this.$refs.chart3);
+            let myChart = this.$echarts.init(this.$refs.chart3);
             myChart.setOption({
                 title: {
                     text: '男女比例',
                     left: 'center'
                 },
+                legend: {top:'10%'},
                 tooltip: {
                     trigger: 'item',
                     formatter: '{b} :  {d}%'

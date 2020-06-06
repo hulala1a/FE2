@@ -4,8 +4,8 @@
 </template>
 
 <script>
-const echarts = require('echarts/lib/echarts');
-require('echarts/lib/chart/radar');
+//const echarts = require('echarts/lib/echarts');
+//require('echarts/lib/chart/radar');
 
 
 export default {
@@ -17,7 +17,7 @@ export default {
     },
     methods:{
         chartInit(){
-            let myChart = echarts.init(this.$refs.chart8);
+            let myChart = this.$echarts.init(this.$refs.chart8);
             myChart.setOption({
                 title: {
                     text: '年度课程指标点得分\n',

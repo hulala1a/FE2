@@ -64,7 +64,20 @@ const actions = {
             }
             url1 += '/reaching_points';
             return axios.get(url1)
-            .then((response)=>{commit('setSpecialty', {specialty:response.data});})
+            .then((response)=>{
+                commit('setSpecialty', {specialty:response.data});
+                commit('setDataSpecialty', {specialty:response.data[0].specialty});
+            })
+        })
+    },
+    specialtyData1({dispatch,state,commit}){
+        return dispatch('yearData').then(()=>{
+            let url1 = 'http://47.116.70.195:3000/apis/years/' + state.datas.year + '/reaching_points';
+            return axios.get(url1)
+            .then((response)=>{
+                commit('setSpecialty', {specialty:response.data});
+                commit('setDataSpecialty', {specialty:response.data[1].specialty});
+            })
         })
     },
     changeSpecialtyData({state,commit}){
@@ -154,10 +167,20 @@ const actions = {
         axios.get(url5)
         .then((response)=>{commit('setNativePlace', {nativePlace:response.data});})
     },
-    requirementData({state,commit}){
-        let url6 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year;
-        return axios.get(url6)
-        .then((response)=>{commit('setRequirement', {requirement:response.data});commit('setDataTarget',{target:response.data[0].target});})
+    requirementData({dispatch, state,commit}){
+        if(state.datas.specialty == undefined){
+            return dispatch('specialtyData1').then(()=>{
+                let url6 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year;
+                return axios.get(url6)
+                .then((response)=>{commit('setRequirement', {requirement:response.data});commit('setDataTarget',{target:response.data[0].target});})
+
+            })
+        }
+        else{
+            let url6 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year;
+            return axios.get(url6)
+            .then((response)=>{commit('setRequirement', {requirement:response.data});commit('setDataTarget',{target:response.data[0].target});})
+        }
     },
     changeRequirementData({state,commit}){
         let url6 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year;
@@ -166,26 +189,26 @@ const actions = {
     },
     courseData({dispatch,state,commit}){
         return dispatch('requirementData').then(()=>{
-            let url7 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year+'/targets/'+state.datas.target;
+            let url7 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year+'/targets/'+state.datas.target.slice(3);
             return axios.get(url7)
             .then((response)=>{commit('setCourse', {course:response.data});commit('setDataCourse',{course:response.data[0].course});})
         });
     },
     changeCourseData1({dispatch,state,commit}){
         return dispatch('changeRequirementData').then(()=>{
-            let url7 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year+'/targets/'+state.datas.target;
+            let url7 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year+'/targets/'+state.datas.target.slice(3);
             return axios.get(url7)
             .then((response)=>{commit('setCourse', {course:response.data});commit('setDataCourse',{course:response.data[0].course});})
         });
     },
     changeCourseData({state,commit}){
-        let url7 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year+'/targets/'+state.datas.target;
+        let url7 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year+'/targets/'+state.datas.target.slice(3);
         return axios.get(url7)
         .then((response)=>{commit('setCourse', {course:response.data});commit('setDataCourse',{course:response.data[0].course});})
     },
     zheData({dispatch,state,commit}){
         return dispatch('courseData').then(()=>{
-            let url8 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/targets/'+state.datas.target+'/courses/'+state.datas.course;
+            let url8 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/targets/'+state.datas.target.slice(3)+'/courses/'+state.datas.course;
             console.log(state.datas.course);
             return axios.get(url8)
             .then((response)=>{commit('setZhe', {zhe:response.data});})
@@ -193,7 +216,7 @@ const actions = {
     },
     changeZheData1({dispatch,state,commit}){
         return dispatch('changeCourseData1').then(()=>{
-            let url8 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/targets/'+state.datas.target+'/courses/'+state.datas.course;
+            let url8 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/targets/'+state.datas.target.slice(3)+'/courses/'+state.datas.course;
             console.log(url8);
             axios.get(url8)
             .then((response)=>{commit('setZhe', {zhe:response.data});})
@@ -201,22 +224,24 @@ const actions = {
     },
     changeZheData2({dispatch,state,commit}){
         return dispatch('changeCourseData').then(()=>{
-            let url8 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/targets/'+state.datas.target+'/courses/'+state.datas.course;
+            let url8 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/targets/'+state.datas.target.slice(3)+'/courses/'+state.datas.course;
             console.log(url8);
             axios.get(url8)
             .then((response)=>{commit('setZhe', {zhe:response.data});})
         });
     },
     changeZheData({state,commit}){
-        let url8 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/targets/'+state.datas.target+'/courses/'+state.datas.course;
+        let url8 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/targets/'+state.datas.target.slice(3)+'/courses/'+state.datas.course;
         console.log(url8);
         axios.get(url8)
         .then((response)=>{commit('setZhe', {zhe:response.data});})
     },
-    classData({state,commit}){
-        let url9 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year+'/classes';
-        return axios.get(url9)
-        .then((response)=>{commit('setClass', {class1:response.data});commit('setDataClass',{class1:response.data[0].class});})
+    classData({dispatch, state,commit}){
+        return dispatch('zheData').then(()=>{
+            let url9 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year+'/classes';
+            return axios.get(url9)
+            .then((response)=>{commit('setClass', {class1:response.data});commit('setDataClass',{class1:response.data[0].class});})
+        })
     },
     changeClassData({state,commit}){
         let url9 = 'http://47.116.70.195:3000/apis/specialties/'+state.datas.specialty+'/years/'+state.datas.year+'/classes';

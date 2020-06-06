@@ -4,8 +4,8 @@
 </template>
 
 <script>
-const echarts = require('echarts/lib/echarts');
-require('echarts/lib/chart/scatter');
+//const echarts = require('echarts/lib/echarts');
+//require('echarts/lib/chart/scatter');
 
 
 export default {
@@ -17,13 +17,13 @@ export default {
     },
     methods:{
         chartInit(){
-            let myChart = echarts.init(this.$refs.chart10);
+            let myChart = this.$echarts.init(this.$refs.chart10);
             myChart.setOption({
                 title: {
                     text: '学生达成度\n',
                     left: 'center'
                 },
-                tooltip: {},
+                tooltip: {data:['达成度']},
                 xAxis: {type:'category'},
                 yAxis: {max:1},
                 dataset: {source:this.dataset},

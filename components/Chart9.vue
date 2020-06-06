@@ -4,8 +4,8 @@
 </template>
 
 <script>
-const echarts = require('echarts/lib/echarts');
-require('echarts/lib/chart/bar');
+//const echarts = require('echarts/lib/echarts');
+//require('echarts/lib/chart/bar');
 
 
 export default {
@@ -17,14 +17,14 @@ export default {
     },
     methods:{
         chartInit(){
-            let myChart = echarts.init(this.$refs.chart9);
+            let myChart = this.$echarts.init(this.$refs.chart9);
             let that=this;
             myChart.setOption({
                 title: {
                     text: '班级达成度\n',
                     left: 'center'
                 },
-                tooltip: {},
+                tooltip: {data:['达成度']},
                 xAxis: {type:'category'},
                 yAxis: {max:1},
                 dataset: {source:this.dataset},
@@ -38,9 +38,6 @@ export default {
             });
         }
 
-    },
-    mounted () {
-        this.$store.dispatch('studentData');
     }
 }
 </script>

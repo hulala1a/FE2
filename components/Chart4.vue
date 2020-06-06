@@ -4,8 +4,8 @@
 </template>
 
 <script>
-const echarts = require('echarts/lib/echarts');
-require('echarts/lib/chart/pie');
+//const echarts = require('echarts/lib/echarts');
+//require('echarts/lib/chart/pie');
 
 
 export default {
@@ -17,7 +17,7 @@ export default {
     },
     methods:{
         chartInit(){
-            let myChart = echarts.init(this.$refs.chart4);
+            let myChart = this.$echarts.init(this.$refs.chart4);
             myChart.setOption({
                 title: {
                     text: '民族分布',

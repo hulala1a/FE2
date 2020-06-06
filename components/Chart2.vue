@@ -4,8 +4,8 @@
 </template>
 
 <script>
-const echarts = require('echarts/lib/echarts');
-require('echarts/lib/chart/gauge');
+//const echarts = require('echarts/lib/echarts');
+//require('echarts/lib/chart/gauge');
 
 
 export default {
@@ -17,12 +17,13 @@ export default {
     },
     methods:{
         chartInit(){
-            let myChart = echarts.init(this.$refs.chart2);
+            let myChart = this.$echarts.init(this.$refs.chart2);
             myChart.setOption({
                 title: {
                     text: '年级总人数',
                     left: 'center'
                 },
+                legend: {},
                 series: [
                     {
                         type: 'gauge',

@@ -4,8 +4,8 @@
 </template>
 
 <script>
-const echarts = require('echarts/lib/echarts');
-require('echarts/lib/chart/sunburst');
+//const echarts = require('echarts/lib/echarts');
+//require('echarts/lib/chart/sunburst');
 
 
 export default {
@@ -17,7 +17,7 @@ export default {
     },
     methods:{
         chartInit(){
-            let myChart = echarts.init(this.$refs.chart6);
+            let myChart = this.$echarts.init(this.$refs.chart6);
             let data=[], j=0, that=this;
             data.push({name:this.dataset[0].requirement,value:this.dataset[0].requirement_point,children:[]});
             console.log(data);
@@ -31,13 +31,14 @@ export default {
             
             myChart.setOption({
                 title: {
-                    text: '旭日图',
+                    text: '毕业要求指标点图',
                     left: 'center'
                 },
                 tooltip: {
                     trigger: 'item',
                     formatter: '{b} :  {c}'
                 },
+                legend: {},
                 series: [{
                     type: 'sunburst',
                     // highlightPolicy: 'ancestor',
@@ -46,16 +47,13 @@ export default {
                 }]
             },true);
             myChart.on('click', function (params) {
-                if(params.name[1]=='_'){
+                if(params.name[0]=='指'){
                     that.$store.commit('setDataTarget', {target:params.name});
                     that.$store.dispatch('changeZheData2');
                 }
             });
         }
 
-    },
-    mounted () {
-        this.$store.dispatch('zheData');
     }
 }
 </script>

@@ -4,9 +4,10 @@ var webpack = require('webpack');
 module.exports = {
     entry: ['babel-polyfill', './main.js'],
     output: {
-        path: path.resolve(__dirname, './dist'),
-        publicPath: '/dist/',
-        filename: 'build.js'
+        //path: path.resolve(__dirname, './dist'),
+        //publicPath: '/dist/',
+        filename: './dist/build.js',
+        chunkFilename: '[name].[chunkhash].js'
     },
     devServer: {
         historyApiFallback: true,
@@ -45,7 +46,10 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/ ,
+                options:{
+                    plugins:['syntax-dynamic-import']
+                },
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,

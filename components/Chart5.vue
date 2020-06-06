@@ -4,11 +4,11 @@
 </template>
 
 <script>
-const echarts = require('echarts/lib/echarts')
-require('echarts/map/js/china')
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
-require('echarts/lib/component/legendScroll')
+//const echarts = require('echarts/lib/echarts')
+
+//require('echarts/lib/component/tooltip')
+//require('echarts/lib/component/title')
+//require('echarts/lib/component/legendScroll')
 
 
 export default {
@@ -20,7 +20,7 @@ export default {
     },
     methods:{
         chartInit(){
-            let myChart = echarts.init(this.$refs.chart5); 
+            let myChart = this.$echarts.init(this.$refs.chart5); 
             myChart.setOption({ 
                 title: {
                     text: '籍贯分布',
@@ -30,7 +30,7 @@ export default {
                     trigger: 'item',
                     formatter: '{b} :  {c}人'
                 },// 进行相关配置
-                dataRange: {
+                visualMap: {
                     show: false,
                     min: 0,
                     max: 30,

@@ -4,8 +4,8 @@
 </template>
 
 <script>
-const echarts = require('echarts/lib/echarts');
-require('echarts/lib/chart/radar');
+//const echarts = require('echarts/lib/echarts');
+//require('echarts/lib/chart/radar');
 
 
 export default {
@@ -17,7 +17,7 @@ export default {
     },
     methods:{
         chartInit(){
-            let myChart = echarts.init(this.$refs.chart7);
+            let myChart = this.$echarts.init(this.$refs.chart7);
             let data1 = [], data2 = [];
             let that = this;
             for(let i=0; i<this.dataset.length; i++){

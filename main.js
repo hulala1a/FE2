@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import router from './router'
 
 Vue.use(VueRouter);
+Vue.prototype.$echarts = require('./myecharts.js');
 
 //Vue.prototype.$axios = axios;
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2 style="text-align:center;">理学院本科教学大屏</h2>
+        <h2 style="text-align:center;">{{ title }}</h2>
         <div class="column" style="width:25%">
             <YearCheckBox1></YearCheckBox1>
             <Chart7></Chart7>
@@ -24,7 +24,10 @@ import Chart8 from './Chart8.vue'
 import Chart9 from './Chart9.vue'
 import Chart10 from './Chart10.vue'
 export default {
-    components: { YearCheckBox1, Chart6, Chart7, Chart8, Chart9, Chart10 }
+    components: { YearCheckBox1, Chart6, Chart7, Chart8, Chart9, Chart10 },
+    data() {
+        return {title: this.$store.state.Data.datas.specialty + '本科教学大屏'};
+    }
 }
 </script>
 

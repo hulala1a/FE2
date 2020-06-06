@@ -4,11 +4,11 @@
 </template>
 
 <script>
-const echarts = require('echarts/lib/echarts');
-require('echarts/lib/chart/bar');
-require('echarts/lib/component/tooltip');
-require('echarts/lib/component/title');
-require('echarts/lib/component/legend');
+//const echarts = require('echarts/lib/echarts');
+//require('echarts/lib/chart/bar');
+//require('echarts/lib/component/tooltip');
+//require('echarts/lib/component/title');
+//require('echarts/lib/component/legend');
 
 export default {
     watch:{dataset(){
@@ -19,7 +19,7 @@ export default {
     },
     methods:{
         chartInit(){
-            let myChart = echarts.init(this.$refs.chart1);
+            let myChart = this.$echarts.init(this.$refs.chart1);
             let that = this;
             let rtn = ['specialty'];
             for(let i of this.$store.state.Data.years){
@@ -60,6 +60,7 @@ export default {
                 that.$store.commit('setDataSpecialty', {specialty:params.name});
             });
         }
-    }
+    },
+    
 }
 </script>
